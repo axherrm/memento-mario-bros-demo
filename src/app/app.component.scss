@@ -1,0 +1,38 @@
+$background-width: 768px;
+$background-height: 720px;
+
+#background-container {
+  margin-left: calc((100vw - $background-width) / 2);
+  margin-right: calc((100vw - $background-width) / 2);
+  margin-bottom: calc((100vh - $background-height) / 2);
+  margin-top: calc((100vh - $background-height) / 2);
+}
+
+#coin {
+  position: absolute;
+  top: calc($background-height - 45px);
+  left: 500px;
+}
+
+#gumba {
+  position: absolute;
+  top: calc($background-height - 45px);
+  left: 700px;
+}
+
+#coins-display {
+  top: 177px;
+  left: 485px;
+}
+
+#lives-display {
+  top: 175px;
+  left: 360px;
+}
+
+.counter-display {
+  position: absolute;
+  font-size: 30px;
+  color: white;
+  font-weight: bold;
+}
