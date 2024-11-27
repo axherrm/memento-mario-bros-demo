@@ -1,11 +1,11 @@
 <main class="main">
   <div id="background-container">
-    <mario #mario></mario>
+    <img id="background-img" ngSrc="Background.png" width="768" height="720" alt="" priority>
     <img id="coin" ngSrc="Coin.png" width="44" height="50" alt="" priority>
     <img id="gumba" ngSrc="Gumba.png" width="47" height="59" alt="" priority>
     <span id="coins-display" class="counter-display">{{ mario.coins }}</span>
     <span id="lives-display" class="counter-display">{{ mario.lives }}</span>
-    <img ngSrc="Background.png" width="768" height="720" alt="" priority>
+    <mario #mario></mario>
   </div>
 </main>
 

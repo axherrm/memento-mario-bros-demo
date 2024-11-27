@@ -1,11 +1,17 @@
 import { Component } from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 import {Direction} from '../types.dts';
+import {EnvironmentService} from '../environment.service';
 
 enum JumpingDirection {
   UP,
   DOWN,
   NONE
+}
+
+export interface Position {
+  x: number;
+  y: number;
 }
 
 @Component({
@@ -18,44 +24,43 @@ enum JumpingDirection {
 })
 export class Mario {
 
-  private static moveSpeed: number = 5;
-  private static baseY: number = 10;
-  private static maxJumpHeight: number = 120;
-  private static jumpFactor: number = 0.2;
-  private static maxX: number = 682;
+  public static MOVE_SPEED: number = 5;
+  public static BASE_Y: number = 10;
+  public static MAX_JUMP_HEIGHT: number = 120;
+  public static JUMP_FACTOR: number = 0.2;
+  public static MAX_X: number = 682;
 
   jumpingDirection: JumpingDirection = JumpingDirection.NONE;
-  position!: {
-    x: number;
-    y: number;
-  };
+  position!: Position;
   lives: number = 5;
   coins: number = 0;
 
-  constructor() {
+  constructor(readonly environmentService: EnvironmentService) {
     this.position = {
       x: 0,
-      y: Mario.baseY,
+      y: Mario.BASE_Y,
     }
     setInterval(() => this.computeJumpHeight(), 30)
   }
 
   private setHeightSafe(newHeight: number) {
-    this.position.y = Math.min(Math.max(Mario.baseY, newHeight), Mario.maxJumpHeight);
-    this.checkEnvironmentEvent();
+    this.position.y = Math.min(Math.max(Mario.BASE_Y, newHeight), Mario.MAX_JUMP_HEIGHT);
+    this.environmentService.checkForEvent(this);
+    // this.checkEnvironmentEvent();
   }
 
   private setXSafe(newX: number) {
-    this.position.x = Math.min(Math.max(0, newX), Mario.maxX);
-    this.checkEnvironmentEvent();
+    this.position.x = Math.min(Math.max(0, newX), Mario.MAX_X);
+    this.environmentService.checkForEvent(this);
+    // this.checkEnvironmentEvent();
   }
 
   private checkEnvironmentEvent() {
-    if (Math.abs(this.position.x - 502) < Mario.moveSpeed / 2 && this.position.y === Mario.baseY) {
+    if (Math.abs(this.position.x - 470) < Mario.MOVE_SPEED / 2 && this.position.y === Mario.BASE_Y) {
       this.lives = Math.max(this.lives - 1, 0);
       return;
     }
-    if (Math.abs(this.position.x - 305) < Mario.moveSpeed / 2 && this.position.y === Mario.baseY) {
+    if (Math.abs(this.position.x - 270) < Mario.MOVE_SPEED / 2 && this.position.y === Mario.BASE_Y) {
       this.coins++;
     }
   }
@@ -63,10 +68,10 @@ export class Mario {
   public move(direction: Direction) {
     switch (direction) {
       case Direction.LEFT:
-        this.setXSafe(this.position.x - Mario.moveSpeed)
+        this.setXSafe(this.position.x - Mario.MOVE_SPEED)
         break;
       case Direction.RIGHT:
-        this.setXSafe(this.position.x + Mario.moveSpeed)
+        this.setXSafe(this.position.x + Mario.MOVE_SPEED)
         break;
     }
   }
@@ -91,7 +96,7 @@ export class Mario {
         this.computeFall();
       }
     } else if (this.jumpingDirection === JumpingDirection.DOWN) {
-      if (this.position.y > Mario.baseY) {
+      if (this.position.y > Mario.BASE_Y) {
         this.computeFall();
       } else {
         this.jumpingDirection = JumpingDirection.NONE;
@@ -100,15 +105,15 @@ export class Mario {
   }
 
   private computeDistanceToMaxHeight(): number {
-    return Math.abs(this.position.y - Mario.maxJumpHeight);
+    return Math.abs(this.position.y - Mario.MAX_JUMP_HEIGHT);
   }
 
   private computeFall() {
-    this.setHeightSafe(this.position.y - this.computeDistanceToMaxHeight() * Mario.jumpFactor);
+    this.setHeightSafe(this.position.y - this.computeDistanceToMaxHeight() * Mario.JUMP_FACTOR);
   }
 
   private computeRise() {
-    this.setHeightSafe(this.position.y + (this.computeDistanceToMaxHeight() * Mario.jumpFactor))
+    this.setHeightSafe(this.position.y + (this.computeDistanceToMaxHeight() * Mario.JUMP_FACTOR))
   }
 
 }

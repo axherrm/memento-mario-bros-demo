@@ -2,32 +2,37 @@ $background-width: 768px;
 $background-height: 720px;
 
 #background-container {
-  margin-left: calc((100vw - $background-width) / 2);
-  margin-right: calc((100vw - $background-width) / 2);
-  margin-bottom: calc((100vh - $background-height) / 2);
-  margin-top: calc((100vh - $background-height) / 2);
+  position: relative;
+  width: $background-width;
+  height: $background-height;
+  margin: calc((100vh - $background-height) / 2) auto;
+  overflow: hidden;
+}
+
+#background-img {
+  position: absolute;
 }
 
 #coin {
   position: absolute;
-  top: calc($background-height - 45px);
-  left: 500px;
+  top: calc($background-height - 155px);
+  left: 300px;
 }
 
 #gumba {
   position: absolute;
-  top: calc($background-height - 45px);
-  left: 700px;
+  top: calc($background-height - 155px);
+  left: 500px;
 }
 
 #coins-display {
-  top: 177px;
-  left: 485px;
+  top: 66px;
+  left: 315px;
 }
 
 #lives-display {
-  top: 175px;
-  left: 360px;
+  top: 64px;
+  left: 195px;
 }
 
 .counter-display {
