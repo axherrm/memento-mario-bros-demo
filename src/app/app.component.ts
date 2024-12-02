@@ -3,10 +3,11 @@ import {RouterOutlet} from '@angular/router';
 import {NgOptimizedImage} from '@angular/common';
 import {Mario} from './mario/mario.component';
 import {Direction} from './types.dts';
+import {HistoryComponent} from './history/history.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NgOptimizedImage, Mario],
+  imports: [RouterOutlet, NgOptimizedImage, Mario, HistoryComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

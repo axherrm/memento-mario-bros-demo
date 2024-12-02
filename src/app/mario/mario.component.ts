@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
-import {Direction} from '../types.dts';
+import {Direction, Memento, Originator} from '../types.dts';
 import {EnvironmentService} from '../environment.service';
 
 enum JumpingDirection {
@@ -14,6 +14,36 @@ export interface Position {
   y: number;
 }
 
+class MarioMemento implements Memento {
+
+  private originator: Mario;
+
+  private readonly jumpingDirection: JumpingDirection;
+  private readonly position: Position;
+  private readonly lives: number;
+  private readonly coins: number;
+
+  public readonly timestamp: Date;
+
+  constructor(originator: Mario, jumpingDirection: JumpingDirection, position: Position, lives: number, coins: number) {
+    this.timestamp = new Date();
+
+    this.originator = originator;
+
+    this.jumpingDirection = jumpingDirection;
+    this.position = position;
+    this.lives = lives;
+    this.coins = coins;
+  }
+
+  restore(): void {
+    this.originator.jumpingDirection = this.jumpingDirection;
+    this.originator.position = this.position;
+    this.originator.lives = this.lives;
+    this.originator.coins = this.coins;
+  }
+}
+
 @Component({
   selector: 'mario',
   imports: [
@@ -22,7 +52,7 @@ export interface Position {
   templateUrl: './mario.component.html',
   styleUrl: './mario.component.scss'
 })
-export class Mario {
+export class Mario implements Originator {
 
   public static MOVE_SPEED: number = 5;
   public static BASE_Y: number = 10;
@@ -41,6 +71,16 @@ export class Mario {
       y: Mario.BASE_Y,
     }
     setInterval(() => this.computeJumpHeight(), 30)
+  }
+
+  save(): Memento {
+    return new MarioMemento(
+      this,
+      this.jumpingDirection,
+      this.position,
+      this.lives,
+      this.coins
+    );
   }
 
   private setHeightSafe(newHeight: number) {
