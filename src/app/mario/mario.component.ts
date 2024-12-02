@@ -46,23 +46,11 @@ export class Mario {
   private setHeightSafe(newHeight: number) {
     this.position.y = Math.min(Math.max(Mario.BASE_Y, newHeight), Mario.MAX_JUMP_HEIGHT);
     this.environmentService.checkForEvent(this);
-    // this.checkEnvironmentEvent();
   }
 
   private setXSafe(newX: number) {
     this.position.x = Math.min(Math.max(0, newX), Mario.MAX_X);
     this.environmentService.checkForEvent(this);
-    // this.checkEnvironmentEvent();
-  }
-
-  private checkEnvironmentEvent() {
-    if (Math.abs(this.position.x - 470) < Mario.MOVE_SPEED / 2 && this.position.y === Mario.BASE_Y) {
-      this.lives = Math.max(this.lives - 1, 0);
-      return;
-    }
-    if (Math.abs(this.position.x - 270) < Mario.MOVE_SPEED / 2 && this.position.y === Mario.BASE_Y) {
-      this.coins++;
-    }
   }
 
   public move(direction: Direction) {

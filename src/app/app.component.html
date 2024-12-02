@@ -1,12 +1,16 @@
+<div style="position: absolute; width: 100vw; height: 100vh">
+  <img id="background-img" height="640" ngSrc="bowser-background.jpg" width="1024">
+</div>
+
 <main class="main">
-  <div id="background-container">
-    <img id="background-img" ngSrc="Background.png" width="768" height="720" alt="" priority>
-    <img id="coin" ngSrc="Coin.png" width="44" height="50" alt="" priority>
-    <img id="gumba" ngSrc="Gumba.png" width="47" height="59" alt="" priority>
-    <span id="coins-display" class="counter-display">{{ mario.coins }}</span>
-    <span id="lives-display" class="counter-display">{{ mario.lives }}</span>
+  <div id="map-container">
+    <img alt="" height="720" id="map-img" ngSrc="Map.png" priority width="768">
+    <img alt="" height="50" id="coin" ngSrc="Coin.png" priority width="44">
+    <img alt="" height="59" id="gumba" ngSrc="Gumba.png" priority width="47">
+    <span class="counter-display" id="coins-display">{{ mario.coins }}</span>
+    <span class="counter-display" id="lives-display">{{ mario.lives }}</span>
     <mario #mario></mario>
   </div>
 </main>
 
-<router-outlet />
+<router-outlet/>

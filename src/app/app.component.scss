@@ -1,15 +1,25 @@
 $background-width: 768px;
 $background-height: 720px;
 
-#background-container {
+#background-img {
+  min-width:100vw;
+  min-height:100vh;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  position: absolute;
+}
+
+#map-container {
   position: relative;
   width: $background-width;
   height: $background-height;
   margin: calc((100vh - $background-height) / 2) auto;
   overflow: hidden;
+  border: #1e1e1e 7px solid;
 }
 
-#background-img {
+#map-img {
   position: absolute;
 }
 
