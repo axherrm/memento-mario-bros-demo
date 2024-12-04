@@ -1,7 +1,7 @@
 <div id="left-control">
   <h2>Saves</h2>
   <h3 *ngFor="let memento of history">
-    {{memento.timestamp.toISOString()}}
+    {{memento.timestamp.toISOString().substring(11,19)}}
     <button (click)="restore(memento)">Load</button>
   </h3>
   <button (click)="save()">Save</button>
