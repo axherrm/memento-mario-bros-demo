@@ -38,6 +38,8 @@ class MarioMemento implements Memento {
 
   restore(): void {
     this.originator.jumpingDirection = this.jumpingDirection;
+    console.log(this.originator.position)
+    console.log(this.position)
     this.originator.position = this.position;
     this.originator.lives = this.lives;
     this.originator.coins = this.coins;
@@ -77,7 +79,10 @@ export class Mario implements Originator {
     return new MarioMemento(
       this,
       this.jumpingDirection,
-      this.position,
+      {
+        x: this.position.x,
+        y: this.position.y,
+      },
       this.lives,
       this.coins
     );
